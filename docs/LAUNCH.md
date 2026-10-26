@@ -141,6 +141,14 @@ Lifted is a tracking and education tool, not a medical device. It does not diagn
 order 01→07. Regenerate after UI changes with `node store/make-screenshots.js` (instructions are
 in the script header).
 
+**App preview video:** `store/preview/app-preview.mp4` (886×1920, 21 s, H.264 30 fps with a
+stereo AAC track, as Apple requires). Pick a poster frame from the first second, which shows the
+shot-day screen. Regenerate with `node store/make-preview-video.js`.
+
+**Social and press:** `store/social/` has a 1200×630 press banner, a 1080×1080 post and two
+1080×1920 stories. Most ad platforms restrict paid ads that name prescription drugs, so use the
+brand-free banner and square for paid campaigns.
+
 **App icon:** `assets/images/icon.png` (1024×1024, no transparency).
 
 **Age rating:** answer the questionnaire honestly. The app contains medical/treatment

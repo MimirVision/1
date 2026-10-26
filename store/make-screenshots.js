@@ -57,7 +57,7 @@ function frame({ title, sub, image }) {
   const morning = new Date();
   morning.setHours(9, 41, 0, 0);
   await page.clock.setFixedTime(morning);
-  await page.goto(`${BASE}/?demo=1&premium=1`);
+  await page.goto(`${BASE}/?demo=1&premium=1&shotday=1`);
   await page.waitForTimeout(1500);
   for (const s of SHOTS) {
     await page.goto(`${BASE}${s.url}`);

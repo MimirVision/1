@@ -6,6 +6,8 @@ Saxenda, Victoza, Trulicity and compounded semaglutide or tirzepatide.
 
 Why this app and this positioning: see [docs/RESEARCH.md](docs/RESEARCH.md).
 Shipping it: [docs/LAUNCH.md](docs/LAUNCH.md). Growing it: [docs/GROWTH.md](docs/GROWTH.md).
+Marketing assets (App Store screenshots, preview video, journey screens, social images) are in
+[store/](store/), each with the script that regenerates it.
 
 | Today | Medication level | Progress | Side-effect patterns |
 | --- | --- | --- | --- |
@@ -46,7 +48,7 @@ npx expo start              # then press i for an iOS simulator (macOS) or scan 
 ```
 
 Web-preview helpers:
-- `/?demo=1&premium=1` loads ~14 weeks of realistic demo data with premium unlocked
+- `/?demo=1&premium=1` loads ~14 weeks of realistic demo data with premium unlocked (add `&shotday=1` to make today shot day)
 - `/?reset=1` clears data and restarts onboarding
 - The **You** tab has a Developer section (demo data, simulated premium) in dev and web builds
 

@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
 
-import { addDays, atTimeOfDay, startOfDay, toDateKey } from '@/lib/dates';
+import { addDays, atTimeOfDay, calendarDaysBetween, startOfDay, toDateKey } from '@/lib/dates';
 import { uid } from '@/lib/id';
 import { INJECTION_SITES } from '@/lib/sites';
 import type { DayLog, DoseLog, Medication, Profile, SymptomLog, WeightLog } from '@/lib/types';
@@ -19,12 +19,15 @@ function mulberry32(seed: number) {
   };
 }
 
-/** ~14 weeks of realistic Zepbound data: titration, weigh-ins, nutrition and side effects. */
-export function buildDemoData(now = new Date()) {
+/**
+ * ~14 weeks of realistic Zepbound data: titration, weigh-ins, nutrition and side effects.
+ * By default the next shot is due tomorrow; `shotToday` makes today shot day instead.
+ */
+export function buildDemoData(now = new Date(), { shotToday = false }: { shotToday?: boolean } = {}) {
   const rand = mulberry32(42);
   const weeks = 14;
-  const start = addDays(startOfDay(now), -weeks * 7 + 1);
-  // Make the start a Monday-ish shot day relative to today so the next shot lands in a few days.
+  const start = addDays(startOfDay(now), -weeks * 7 + (shotToday ? 0 : 1));
+  // Shots fall on the start date's weekday.
   const shotDay = start.getDay();
 
   const profile: Profile = {
@@ -70,7 +73,7 @@ export function buildDemoData(now = new Date()) {
   }));
 
   const weights: WeightLog[] = [];
-  const totalDays = weeks * 7 - 1;
+  const totalDays = calendarDaysBetween(start, now);
   const startLb = 231.4;
   for (let d = 0; d <= totalDays; d += 1) {
     if (d % 2 === 1 && d !== totalDays) continue; // weigh in most mornings
@@ -120,8 +123,8 @@ export function buildDemoData(now = new Date()) {
   return { profile, medications: [medication], doses, weights, days, symptoms };
 }
 
-export function loadDemoData(options: { premium?: boolean } = {}) {
-  const data = buildDemoData();
+export function loadDemoData(options: { premium?: boolean; shotToday?: boolean } = {}) {
+  const data = buildDemoData(new Date(), { shotToday: options.shotToday });
   useStore.getState().replaceData({
     ...data,
     targetOverrides: {},
@@ -132,10 +135,12 @@ export function loadDemoData(options: { premium?: boolean } = {}) {
   });
 }
 
-/** Web-only: `?demo=1` (and `&premium=1`) loads demo data, used for screenshots. */
+/** Web-only: `?demo=1` (plus `&premium=1`, `&shotday=1`) loads demo data, used for screenshots. */
 export function maybeLoadDemoFromUrl() {
   if (Platform.OS !== 'web' || typeof window === 'undefined') return;
   const params = new URLSearchParams(window.location.search);
-  if (params.get('demo') === '1') loadDemoData({ premium: params.get('premium') === '1' });
+  if (params.get('demo') === '1') {
+    loadDemoData({ premium: params.get('premium') === '1', shotToday: params.get('shotday') === '1' });
+  }
   if (params.get('reset') === '1') useStore.getState().resetAll();
 }
