@@ -1,0 +1,83 @@
+{
+  "expo": {
+    "name": "Lifted",
+    "slug": "lifted-glp1",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "lifted",
+    "userInterfaceStyle": "automatic",
+    "description": "GLP-1 companion: dose reminders, estimated medication level, Muscle Shield protein & strength targets, side-effect patterns and doctor-ready reports.",
+    "ios": {
+      "bundleIdentifier": "co.liftedapp.glp1",
+      "buildNumber": "1",
+      "supportsTablet": false,
+      "icon": "./assets/images/icon.png",
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "privacyManifests": {
+        "NSPrivacyAccessedAPITypes": [
+          {
+            "NSPrivacyAccessedAPIType": "NSPrivacyAccessedAPICategoryUserDefaults",
+            "NSPrivacyAccessedAPITypeReasons": ["CA92.1"]
+          }
+        ],
+        "NSPrivacyTracking": false
+      }
+    },
+    "android": {
+      "package": "co.liftedapp.glp1",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "backgroundColor": "#5B3DF5",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "output": "single",
+      "favicon": "./assets/images/favicon.png",
+      "name": "Lifted — GLP-1 Tracker",
+      "themeColor": "#5B3DF5"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#5B3DF5",
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 120,
+          "dark": {
+            "backgroundColor": "#2A2452",
+            "image": "./assets/images/splash-icon.png"
+          }
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#5B3DF5",
+          "enableRemoteNotifications": false
+        }
+      ],
+      "expo-localization",
+      "expo-sharing",
+      "expo-web-browser",
+      "@react-native-community/datetimepicker"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "eas": {}
+    }
+  }
+}
